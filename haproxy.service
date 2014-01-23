@@ -1,0 +1,13 @@
+[Unit]
+Description=HAProxy
+After=etcd.service
+After=docker.service
+
+[Service]
+ExecStart=/usr/bin/docker run -name haproxy -rm -p 80:80 dickeyxxx/haproxy
+ExecStartPost=/usr/bin/etcdctl set /apps/%H running
+ExecStop=/usr/bin/docker stop haproxy && /usr/bin/docker rm haproxy
+ExecStopPost=/usr/bin/etcdctl rm /apps/%H
+
+[Install]
+WantedBy=local.target
