@@ -3,7 +3,7 @@ MAINTAINER Jeff Dickey jeff@dickeyxxx.com
 
 RUN apt-get install -y build-essential make g++ libssl-dev
 
-RUN useradd haproxy
+RUN useradd -m haproxy
 
 # Install haproxy
 RUN mkdir -p /tmp/haproxy
