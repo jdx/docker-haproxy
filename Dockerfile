@@ -3,8 +3,6 @@ MAINTAINER Jeff Dickey jeff@dickeyxxx.com
 
 RUN apt-get install -y build-essential make g++ libssl-dev
 
-RUN useradd -m haproxy
-
 # Install haproxy
 RUN mkdir -p /tmp/haproxy
 WORKDIR /tmp/haproxy
@@ -24,10 +22,8 @@ WORKDIR /
 RUN rm -rf /tmp/haproxy
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Runit
-RUN mkdir /etc/service/haproxy
-ADD haproxy.sh /etc/service/haproxy/run
+ADD run /usr/local/bin/haproxy
 
-CMD ["/sbin/my_init"]
+CMD ["/usr/local/bin/haproxy"]
 
-EXPOSE 8081 8082 22002
+EXPOSE 80 443 220002
